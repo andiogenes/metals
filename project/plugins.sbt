@@ -8,6 +8,9 @@ addSbtPlugin("com.github.reibitto" % "sbt-welcome" % "0.5.0")
 // Mima used for mtags-interfaces
 addSbtPlugin("com.typesafe" % "sbt-mima-plugin" % "1.1.4")
 
+// Use sbt-assembly to provide single JAR
+addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "2.3.1")
+
 libraryDependencies += "org.scala-sbt" %% "scripted-plugin" % sbtVersion.value
 
 resolvers ++= Resolver.sonatypeOssRepos("public")

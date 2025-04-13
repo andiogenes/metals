@@ -39,6 +39,12 @@ usefulTasks := Welcome.tasks
 
 ThisBuild / semanticdbVersion := V.semanticdb(scalaVersion.value)
 
+// TODO: choose proper merge strategy
+ThisBuild / assemblyMergeStrategy := {
+  case PathList("META-INF", _*) => MergeStrategy.discard
+  case _                        => MergeStrategy.first
+}
+
 inThisBuild(
   List(
     version ~= { dynVer =>
@@ -797,3 +803,4 @@ lazy val docs = project
   )
   .dependsOn(metals)
   .enablePlugins(DocusaurusPlugin)
+
