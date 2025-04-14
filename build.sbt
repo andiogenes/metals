@@ -41,8 +41,9 @@ ThisBuild / semanticdbVersion := V.semanticdb(scalaVersion.value)
 
 // TODO: choose proper merge strategy
 ThisBuild / assemblyMergeStrategy := {
-  case PathList("META-INF", _*) => MergeStrategy.discard
-  case _                        => MergeStrategy.first
+  case PathList("META-INF", m) if m.toLowerCase == "manifest.mf" =>
+    MergeStrategy.discard
+  case _ => MergeStrategy.first
 }
 
 inThisBuild(
@@ -762,6 +763,7 @@ lazy val unit = project
   )
   .dependsOn(mtest, metals)
   .enablePlugins(BuildInfoPlugin)
+  .disablePlugins(AssemblyPlugin)
 
 lazy val slow = project
   .in(file("tests/slow"))
@@ -776,6 +778,7 @@ lazy val slow = project
       .value,
   )
   .dependsOn(unit)
+  .disablePlugins(AssemblyPlugin)
 
 lazy val bench = project
   .in(file("metals-bench"))
@@ -791,6 +794,7 @@ lazy val bench = project
   )
   .dependsOn(unit)
   .enablePlugins(JmhPlugin)
+  .disablePlugins(AssemblyPlugin)
 
 lazy val docs = project
   .in(file("metals-docs"))
@@ -803,4 +807,5 @@ lazy val docs = project
   )
   .dependsOn(metals)
   .enablePlugins(DocusaurusPlugin)
+  .disablePlugins(AssemblyPlugin)
 
